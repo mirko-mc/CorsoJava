@@ -8,7 +8,7 @@ public class Hello {
 		int a = 30;
 		
 		System.out.println(a);
-
+		System.out.println("prova commit GIT");
 	}
 	
 	private String printXml() {
