@@ -1,0 +1,25 @@
+V - crea interfaccia grafica della scheda aggiungi contatto
+M - dichiara variabili del contatto
+M - costruttore per nome, cognome, telefono
+M - costruttore default qualora ce ne fosse bisogno
+M - getter and setter
+B - crea database
+B - crea tabella contatti
+B - assegna database ad utente
+B - crea connessione a database
+B - dichiaro rb per il discorso singletonpattern
+B - istanzio la classe rubricabusiness
+B - crea metodo aggiungi contatto per la insert
+V - event handler per il pulsante aggiungi
+V - event handler del pulsante annulla
+V - crea interfaccia grafica della scheda ricerca
+B - crea metodo ricerca contatti
+V - ricerca account in tabella 
+B - 
+B - 
+B - 
+ 
+ 
+ BUSINESS è la classe che si occupa del database
+ MODEL è la classe che mappa la nostra tabella
+ VIEW contiene la grafica
