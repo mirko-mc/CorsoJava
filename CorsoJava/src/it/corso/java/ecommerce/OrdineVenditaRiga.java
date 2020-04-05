@@ -57,7 +57,6 @@ public class OrdineVenditaRiga {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "ID: " + articolo.getIdArt() + "|NOME: " +  articolo.getNomeArt() + "|PREZZO: " + articolo.getPrezzo() + "|QUANTITA': " + getQuantita() + "|SCONTO: " + getSconto() + "%|IVA: " + articolo.getIva() + "%\n";
 	}
 }
