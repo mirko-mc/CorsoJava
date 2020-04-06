@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+
 /**
  * Servlet implementation class DownloadPDF
  */
@@ -28,16 +33,36 @@ public class DownloadPDF extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* creiamo un file pdf utilizzando la libreria iText */
+		/* creiamo oggetto che sarà stampante pdf. dobbiamo indicare la destinazione del pdf. nel nostro caso verrà realizzato al volo */
+		PdfWriter pdf = new PdfWriter(response.getOutputStream());
+		/* inizializziamo il documento pdf passando la stampante */
+		PdfDocument doc = new PdfDocument(pdf);
+		/* inizializziamo il documento che poi sarà stampato in pdf passando il documento pdf */
+		Document document = new Document(doc);
+		/* editiamo documento da stampare */
+		document.add(new Paragraph("sono un pdf"));
+		document.add(new Paragraph("sono un pdf"));
+		document.add(new Paragraph("sono un pdf"));
+		document.add(new Paragraph("sono un pdf"));
+		document.add(new Paragraph("sono un pdf"));
+		/* finito di editare chiudo il documento */
+		document.close();
+		/* imposto il contentType per permettere il pdf su web */
+		response.setContentType("application/pdf");
+		/* nell'header diciamo che il file deve essere scaricato col nome indicato */
+		response.setHeader("Content-disposition", "attachment; filename=corsojava.pdf");
 		
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
 		
-		PrintWriter out = response.getWriter();
-		
-		out.println("<!DOCTYPE html><html>");
-		out.println("<head><title>Ciao!</title>");
-		out.println("<body><h1>Ciao " + nome + " " + cognome + "</h1>");
-		out.println("</body></html>");
+//		String nome = request.getParameter("nome");
+//		String cognome = request.getParameter("cognome");
+//		
+//		PrintWriter out = response.getWriter();
+//		
+//		out.println("<!DOCTYPE html><html>");
+//		out.println("<head><title>Ciao!</title>");
+//		out.println("<body><h1>Ciao " + nome + " " + cognome + "</h1>");
+//		out.println("</body></html>");
 		
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 //		try {
