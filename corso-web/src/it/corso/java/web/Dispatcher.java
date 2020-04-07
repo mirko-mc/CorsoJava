@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.corso.java.web.beans.Articolo;
+
 /**
  * Servlet implementation class Dispatcher
  */
@@ -56,11 +58,19 @@ public class Dispatcher extends HttpServlet {
 				if (articolo != null && !articolo.equals("")) {
 					carrello.add(articolo);
 				}
-				
+								
 				request.removeAttribute("oggetto");
 				
 				request.getServletContext().getRequestDispatcher("/jsp/pagina1.jsp").include(request, response);
 				} else if (pagina.equals("2")) {
+					/* dichiaro un nuovo oggetto articolo dal package beans */
+					Articolo art = new Articolo();
+					/* assegno valori alle variabili */
+					art.setCodice("123");
+					art.setNome("gioco di merda");
+					art.setPrezzo(36);
+					/* associo l'oggetto art alla variabile articolo */
+					request.setAttribute("articolo", art);
 					request.getServletContext().getRequestDispatcher("/jsp/pagina2.jsp").include(request, response);
 					} else if (pagina.equals("3")) {
 						request.getServletContext().getRequestDispatcher("/jsp/pagina3.jsp").include(request, response);

@@ -1,3 +1,5 @@
+<!-- PAGE consente di definire alcune impostazioni relative alla compilazione della pagina.
+	 LANGUAGE specifica il linguaggio da utilizzare in fase di compilazione -->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

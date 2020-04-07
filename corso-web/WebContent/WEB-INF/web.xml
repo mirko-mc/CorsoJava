@@ -20,4 +20,9 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <!-- per dire a quale pagina deve reindirizzare per un errore specifico -->
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/jsp/error.jsp</location>
+  </error-page>
 </web-app>
