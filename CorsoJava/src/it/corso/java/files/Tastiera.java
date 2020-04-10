@@ -19,10 +19,12 @@ public class Tastiera {
 		System.out.println("inserisci il tuo nome: ");
 		Scanner scan = new Scanner(System.in);
 		saluto += scan.nextLine();
+		scan.close();
 		
 		System.out.println("inserisci il tuo cognome: ");
 		scan = new Scanner(System.in);
 		saluto += " " + scan.nextLine();
+		scan.close();
 			
 		System.out.println(saluto);
 	}

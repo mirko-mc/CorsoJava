@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.corso.java.business.CorsoWebLocal;
+import it.corso.java.business.CorsoWebRemote;
+import it.corso.java.business.CorsoWebStatefulLocal;
 import it.corso.java.web.beans.Articolo;
 
 /**
@@ -18,7 +22,16 @@ import it.corso.java.web.beans.Articolo;
 @WebServlet("/web")
 public class Dispatcher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	/* creo istanza dell'interfaccia LOCAL che punta al nostro EJB
+	 * nel video da errore senza annotation, qui no
+	 * */
+	@EJB
+	CorsoWebLocal corsoLocal;
+	@EJB
+	CorsoWebRemote corsoRemote;
+	@EJB
+	CorsoWebStatefulLocal corsoStateful;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,7 +71,12 @@ public class Dispatcher extends HttpServlet {
 				if (articolo != null && !articolo.equals("")) {
 					carrello.add(articolo);
 				}
-								
+				
+				carrello.add("saluto dell'EJB LOCAL: " + corsoLocal.saluto());
+				carrello.add("saluto dell'EJB REMOTE: " + corsoRemote.saluto());
+				corsoStateful.incrementa(1);
+				System.out.println(corsoStateful.getContatore());
+				corsoStateful.chiudiConnessione();
 				request.removeAttribute("oggetto");
 				
 				request.getServletContext().getRequestDispatcher("/jsp/pagina1.jsp").include(request, response);
@@ -71,6 +89,7 @@ public class Dispatcher extends HttpServlet {
 					art.setPrezzo(36);
 					/* associo l'oggetto art alla variabile articolo */
 					request.setAttribute("articolo", art);
+					
 					request.getServletContext().getRequestDispatcher("/jsp/pagina2.jsp").include(request, response);
 					} else if (pagina.equals("3")) {
 						request.getServletContext().getRequestDispatcher("/jsp/pagina3.jsp").include(request, response);
