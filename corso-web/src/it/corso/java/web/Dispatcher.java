@@ -45,6 +45,22 @@ public class Dispatcher extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getServletContext().getRequestDispatcher("/jsp/header.jsp").include(request, response);
 		
+//		corsoLocal.salvaFattura();
+//		corsoLocal.stampaFattura();
+//		corsoLocal.creaConto();
+//		corsoLocal.creaContoAssociatoAdUnUtente();
+//		corsoLocal.assegnaStudenteAlCorso();
+//		corsoLocal.elencoUtenti();
+		/* ----- IMPAGINAZIONE ----- */
+		long righeTotali = corsoLocal.elencoUtentiCount();
+		int risultatiPerPagina = 2;
+		int rigaDiPartenza = 1;
+		corsoLocal.elencoUtenti2(rigaDiPartenza, risultatiPerPagina);
+		/* ------------------------- */
+//		corsoRemote.collegati();
+		String saluto = corsoLocal.saluto();
+//		response.sendError(404);
+		
 		String pagina = request.getParameter("pagina");
 		if (pagina != null && !pagina.trim().equals("")) {
 			if (pagina.equals("1")) {
@@ -112,3 +128,4 @@ public class Dispatcher extends HttpServlet {
 	}
 
 }
+/* http://localhost:8080/corso-web/web */

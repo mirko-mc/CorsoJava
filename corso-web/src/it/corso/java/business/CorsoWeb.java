@@ -7,4 +7,10 @@ public interface CorsoWeb {
 	 * */
 	public String saluto();
 	public void stampaFattura();
+	public void creaConto();
+	public void creaContoAssociatoAdUnUtente();
+	public void assegnaStudenteAlCorso();
+	public void elencoUtenti();
+	public long elencoUtentiCount();
+	public void elencoUtenti2(int pos, int maxResults);
 }
