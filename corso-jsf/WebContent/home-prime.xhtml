@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<!-- XMLNS:H > per utilizzare le librerie ...
+	 XMLNS:F > per utilizzare le librerie ...
+-->
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://primefaces.org/ui">
+<h:head>
+	<meta charset="ISO-8859-1" />
+	<title>Insert title here</title>
+
+	<!-- h:outputStylesheet > permette di includere un file css nella pagina
+		 name > eventuale percorso e nome del file css
+		 library > cartella root dentro resources contenente i file css
+	-->
+	<h:outputStylesheet name="corso.css" library="css"></h:outputStylesheet>
+	<!-- h:outputScript > permette di includere uno script js nella pagina
+		 name > eventuale percorso e nome del file js
+		 library > cartella root dentro resources contenente gli script js
+	-->
+	<!-- h:outputScript name="lib/corso.js" library="js"></h:outputScript -->
+</h:head>
+<h:body>
+	<h1>HELLO NABBBO!!!!!!!!</h1>
+	<h:form>
+		<br />
+		
+		SIGNATURE
+		<br />
+		<ui:signature widgetVar="firma" style="width: 400px; height: 300px;" guideline="true"></ui:signature>
+		<br /><br />
+		
+		PHOTO CAM
+		<br /> widgetVar > variabile che conterra' l'immagine generata dal salvataggio
+		<br />
+		<!-- <ui:photoCam widgetVar="imgCamera"></ui:photoCam>  -->
+		<br /><br />
+		
+		KEYBOARD
+		<br /> premendo nel campo di testo compare la tastiera
+		<br /> keypadOnly > definisce se mostrare solo il tastierino numerico o no
+		<br />
+		<ui:keyboard id="tastiera" value="" keypadOnly="true"></ui:keyboard>
+		<br /><br />
+		
+		IMAGE COMPARE
+		<br />
+		<ui:imageCompare leftImage="/resources/images/chiocciola.jpg" rightImage="/resources/images/free.jpg" height="200"></ui:imageCompare>
+		<br /><br />
+		
+		DIAGRAM
+		<br /> value > variabile del bean che contiene i dati da renderizzare
+		<br />
+		<ui:diagram value="#{hello.diagram}" style="height: 500px;"></ui:diagram>
+		<br />
+		<br /><br />
+		
+		TABMENU'
+		<br /> activeIndex > riceve un parametro per selezionare il tab 
+		<br /> actionListener > metodo contenente le azioni da eseguire (da implementare nel bean)
+		<br /> outcome > indica la pagina di destinazione
+		<br /> value > indica il nome del tab
+		<br />
+		<ui:tabMenu activeIndex="#{param.tab}">
+			<ui:menuitem value="Tab 1" outcome="home-prime">
+				<f:param name="tab" value="0"></f:param>
+			</ui:menuitem>
+			<ui:menuitem value="Tab 2" outcome="home-prime">
+				<f:param name="tab" value="1"></f:param>
+			</ui:menuitem>
+			<ui:menuitem value="Tab 3" outcome="home-prime">
+				<f:param name="tab" value="2"></f:param>
+			</ui:menuitem>
+		</ui:tabMenu>
+		<br />
+		<br />
+		
+		MENU' BAR (dinamico, la classica barra dei menu')
+		<br /> actionListener > metodo contenente le azioni da eseguire (da implementare nel bean)
+		<br /> value > indica il nome del menu'
+		<br />
+		<ui:menubar>
+			<ui:submenu label="MENU' 1">
+				<ui:menuitem actionListener="#{hello.aggiorna}" value="Salva"></ui:menuitem>
+				<ui:submenu label="SUBMENU' 1">
+					<ui:menuitem actionListener="#{hello.aggiorna}" value="Salva"></ui:menuitem>
+				</ui:submenu>
+			</ui:submenu>
+			<ui:submenu label="MENU' 2">
+				<ui:menuitem actionListener="#{hello.aggiorna}" value="Modifica"></ui:menuitem>
+			</ui:submenu>
+			<ui:submenu label="MENU' 3">
+				<ui:menuitem actionListener="#{hello.aggiorna}" value="Aggiorna"></ui:menuitem>
+			</ui:submenu>
+		</ui:menubar>
+		<br />
+		<br />
+		
+		MENU' (statico)
+		<br /> actionListener > metodo contenente le azioni da eseguire (da implementare nel bean)
+		<br /> value > indica il nome del menu'
+		<br /> submenu > separa il menu' in sezioni. senza viene tutto in un unico menu'
+		<ui:menu>
+			<ui:submenu label="SOTTOMENU' 1">
+				<ui:menuitem actionListener="#{hello.aggiorna}" value="Salva"></ui:menuitem>
+			</ui:submenu>
+			<ui:submenu label="SOTTOMENU' 2">
+				<ui:menuitem actionListener="#{hello.aggiorna}" value="Modifica"></ui:menuitem>
+			</ui:submenu>
+			<ui:submenu label="SOTTOMENU' 3">
+				<ui:menuitem actionListener="#{hello.aggiorna}" value="Aggiorna"></ui:menuitem>
+			</ui:submenu>
+		</ui:menu>
+		<br />
+		<br />
+		<br />
+		
+		CONTEXT MENU'
+		<br /> appare il menu' facendo click destro in qualsiasi punto della pagina
+		<br /> actionListener > metodo contenente le azioni da eseguire (da implementare nel bean)
+		<br /> value > indica il nome del menu'
+		<br />
+		<ui:contextMenu>
+			<ui:menuitem actionListener="#{hello.aggiorna}" value="Salva"></ui:menuitem>
+			<ui:menuitem actionListener="#{hello.aggiorna}" value="Modifica"></ui:menuitem>
+			<ui:menuitem actionListener="#{hello.aggiorna}" value="Aggiorna"></ui:menuitem>
+		</ui:contextMenu>
+		<br />
+		<br />
+		
+		COLOR PICKER
+		<br />
+		<ui:colorPicker></ui:colorPicker>
+		<br />
+		<br />
+		
+		CHART
+		<br /> type > definisce il tipo di grafico che vogliamo realizzare
+		<br /> model > la variabile da cui il tag prendera' i dati per visualizzare il grafico (da dichiarare nel bean)
+		<ui:chart type="bar" model="#{hello.barModel}"></ui:chart>
+		<br />
+		<br />
+		
+		ORDER LIST
+		<br /> var > nome della variabile associata all'i-esimo elemento della lista
+		<br /> value > lista che contiene gli elementi (da dichiarare nel bean)
+		<br /> itemValue > valore associato all'i-esimo elemento
+		<br /> itemLabel > testo da visualizzare
+		<br /> controlsLocation > definisce se e dove mostrare i pulsanti per spostare gli elementi della lista
+		<br />
+		<ui:orderList var="corso" value="#{hello.opzioni}"
+			itemValue="#{corso}" itemLabel="#{corso}" controlsLocation="none"></ui:orderList>
+		<ui:orderList var="corso" value="#{hello.opzioni}"
+			itemValue="#{corso}" itemLabel="#{corso}"></ui:orderList>
+		<br />
+		<br /> 
+		
+		CAROUSEL
+		<br /> var > nome della variabile associata alla i-esima immagine
+		<br /> value > lista che contiene le immagini da visualizzare (da dichiarare nel bean)
+		<br /> responsive > indica se adattare il componente in base al dispositivo che si sta utilizzando
+		<br /> autoPlayInterval > imposta il tempo in ms necessario per far partire il carosello in automatico
+		<ui:carousel var="img" value="#{hello.immagini}" responsive="true"
+			autoPlayInterval="10000">
+			<ui:graphicImage name="images/#{img}" alt="ALT Immagine #{img}"
+				height="250" title="TITLE Immagine #{img}"></ui:graphicImage>
+		</ui:carousel>
+		<br />
+		<br />
+		
+		GALLERIA
+		<br /> var > nome della variabile associata alla i-esima immagine
+		<br /> value > lista che contiene le immagini da visualizzare (da dichiarare nel bean)
+		<br /> name > path all'interno di resources dove sono situate le immagini
+		<br /> showCaption > indica se mostrare la descrizione delle immagini
+		<br /> title e alt > rispettivamente titolo e descrizione immagine mostrati nel caption
+		<br />
+		<ui:galleria var="img" value="#{hello.immagini}" panelHeight="250"
+			panelWidth="500" showCaption="true">
+			<ui:graphicImage name="images/#{img}" alt="ALT Immagine #{img}"
+				title="TITLE Immagine #{img}"></ui:graphicImage>
+		</ui:galleria>
+
+		<br />
+		<br />
+		
+		MENU' BREADCRUMB
+		<br /> value > nome del menu'
+		<br /> url > indirizzo della pagina a cui punta il menu'
+		<br /> il primo punta alla homepage <br />
+		<ui:breadCrumb>
+			<ui:menuitem value="MENU' 1" url="#"></ui:menuitem>
+			<ui:menuitem value="MENU' 2" url="#"></ui:menuitem>
+			<ui:menuitem value="MENU' 3" url="#"></ui:menuitem>
+			<ui:menuitem value="MENU' 4" url="#"></ui:menuitem>
+			<ui:menuitem value="MENU' 5" url="#"></ui:menuitem>
+		</ui:breadCrumb>
+		<br />
+		<br />
+		
+		CONFIRM DIALOG 
+		<ui:commandButton value="APRI CONFIRM DIALOG" id="BTNconfirmDialog"
+			type="button">
+			<br /> header > titolo del confirm dialog
+		<br /> message > messaggio del confirm dialog
+		<br /> global > rende disponibile il confirmDialog per tutti i componenti che ne fanno richiesta <br />
+			<ui:confirm header="CONFERMA AZIONE"
+				message="Sicuro di voler confermare?"></ui:confirm>
+		</ui:commandButton>
+		<ui:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<ui:commandButton type="button" value="SI'"></ui:commandButton>
+			<ui:commandButton type="button" value="NO"></ui:commandButton>
+		</ui:confirmDialog>
+		<br />
+		<br /> 
+		
+		OVERLAY PANEL
+		<br /> hideEffect > imposta l'effetto di cihusura del pannello <br />
+		<ui:commandButton value="APRI OVERLAY PANEL" id="BTNoverlayPanel"
+			type="button"></ui:commandButton>
+		<ui:overlayPanel for="BTNoverlayPanel" id="overlayPanel"
+			hideEffect="fade">
+			<p>TESTO CHE COMPARIRA' NELL'OVERLAY PANEL</p>
+			<p>TESTO CHE COMPARIRA' NELL'OVERLAY PANEL</p>
+			<p>TESTO CHE COMPARIRA' NELL'OVERLAY PANEL</p>
+		</ui:overlayPanel>
+		<br />
+		<br /> 
+		
+		DIALOG
+		<br /> va usato in associazione con un pulsante
+		<br /> widgetVar > specifica il nome associato al widget dialog che vogliamo aprire
+		<ui:dialog widgetVar="alert" header="TITOLO DEL DIALOG">
+		testo che comparira' nel dialog <br />
+		<ui:outputLabel value="SEI SICURO?"></ui:outputLabel>
+		</ui:dialog>
+		<br /> all'interno contiene script PrimeFaces quindi va scritto cosi' <br />
+		<ui:commandButton onclick="PF('alert').show();" type="button"
+			value="APRI IL DIALOG"></ui:commandButton>
+		<br />
+		<br />
+		
+		ACCORDION PANEL
+		<br /> ui:tab > crea ogni singolo pannello
+		<br /> title > definisce il titolo del pannello
+		<br /> multiple > indica che e' possibile avere piu' tab aperti contemporaneamente
+		<ui:accordionPanel multiple="true">
+			<ui:tab title="Panel 1">
+				<p>TESTO CHE COMPARIRA' NEL PANEL 1</p>
+			</ui:tab>
+			<ui:tab title="Panel 2">
+				<p>TESTO CHE COMPARIRA' NEL PANEL 2</p>
+			</ui:tab>
+			<ui:tab title="Panel 3">
+				<p>TESTO CHE COMPARIRA' NEL PANEL 3</p>
+			</ui:tab>
+		</ui:accordionPanel>
+		<br />
+		<br />
+		
+		INPUT MASK
+		<br /> mask > attributo obbligatorio
+		<br />
+		<ui:inputMask mask="99/99/9999" value=""></ui:inputMask>
+		<br />
+		<br />
+	
+		CALENDARIO
+		<br /> mode > per rimanere il calendario aperto
+		<ui:calendar value="" mode="inline"></ui:calendar>
+		<br />
+		<br />
+		
+		FIELDSET
+		<br /> toggleable > per fare in modo che il fieldset si apra e si chiuda
+		<br /> toggleSpeed > velocita' di apertura e chiusura espressa in ms
+		<br /> legend > definisce il testo sul pulsante di apertura/chiusura
+		<br /> toggleable toggleSpeed legend> rimarra' fisso se manca anche solo uno di questi attributi
+		<br /> collapse > indica lo stato aperto/chiuso al caricamento della pagina
+		<ui:fieldset legend="TOGGLE" toggleable="true" toggleSpeed="50"
+			collapsed="true">
+			<p>FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET
+				FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET
+				FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET
+				FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET
+				FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET FIELDSET
+				FIELDSET</p>
+		</ui:fieldset>
+		<br />
+		<br />
+		
+		EDITOR
+		<ui:editor></ui:editor>
+		<br /><br />
+		
+		INPUT TEXT
+		<br />
+		<ui:inputText value="#{hello.nome}"></ui:inputText>
+		<br />
+		
+		COMMAND BUTTON
+		<br /> actionlistner > richiama metodo
+		<br /> update > indica quale campo/componente con lo stesso id (out) deve essere aggiornato all'interno della pagina
+		<br /> ajax="true" > E' true di default. alla pressione del pulsante la pagina non sara' ricaricata (chiamata asincrona)
+		<br /> ajax="false" > alla pressione del pulsante la pagina sara' ricaricata (chiamata sincrona)
+		<br />
+		<ui:commandButton actionListener="#{hello.aggiorna}" update="out"
+			value="INVIA ASYNC" icon="ui-icon-star"></ui:commandButton>
+		<ui:commandButton ajax="false" ajactionListener="#{hello.aggiorna}"
+			update="out" value="INVIA SYNC" icon="ui-icon-star"></ui:commandButton>
+		<br /><br />
+		
+		OUTPUT LABEL		
+		<br /> outputLabel > componente che scrive il testo che noi passiamo
+		<br /> value > testo passato
+		<ui:outputLabel value="NOME = #{hello.nome}" id="out"></ui:outputLabel>
+		<br /><br />
+		
+		INPUT TEXTAREA
+		<br /> counter="display" > sara' un componente con id display dove far vedere il testo
+		<br />countertemplate > {0} indichera' il numero di caratteri rimanenti
+		<br />
+		<ui:inputTextarea completeMethod="#{hello.cerca}" queryDelay="1"
+			minQueryLength="3" counter="display" maxlength="50"
+			counterTemplate="{0} caratteri disponibili"></ui:inputTextarea>
+		<ui:outputLabel id="display"></ui:outputLabel>
+		<br />
+		<br />
+		
+		INPUT NUMBER
+		<br />
+		<ui:inputNumber decimalSeparator="." thousandSeparator=","
+			symbol=" EUR" symbolPosition="s"></ui:inputNumber>
+		<br />
+		<br />
+		
+		INPUT SWITCH
+		<br />
+		<ui:inputSwitch></ui:inputSwitch>
+		<br />
+		<br />
+		
+		SPINNER
+		<br />
+		<ui:spinner></ui:spinner>
+		<br />
+		<br />
+		
+		PASSWORD
+		<br />
+		<ui:password feedback="true"></ui:password>
+		<br />
+		<br />
+
+		CONFRONTO PASSWORD
+		<br /> feedback > mostra il pannello che indica la robustezza della password
+		<br /> match > indica con quale campo confrontare l'uguaglianza della password
+		<br />
+		Inserisci Password
+		<ui:outputLabel for="pwd1" />
+		<ui:password id="pwd1" feedback="true" match="pwd2"></ui:password>
+		<br />
+		Conferma Password
+		<ui:outputLabel for="pwd2" />
+		<ui:password id="pwd2"></ui:password>
+		<br />
+		Invia Password
+		<ui:commandButton actionListener="#{hello.aggiorna}" ajax="false"
+			value="INVIA PASSWORD" icon="ui-icon-star"></ui:commandButton>
+		<br />
+		<br />
+
+		SELECT CHECKBOX MENU
+		<br /> filter > abilita il filtro di ricerca
+		<br />
+		<ui:selectCheckboxMenu label="SELEZIONA OPZIONI" filter="true">
+			<f:selectItems value="#{hello.opzioni}"></f:selectItems>
+		</ui:selectCheckboxMenu>
+	</h:form>
+</h:body>
+</html>

@@ -37,7 +37,7 @@ Sono nel body della pagina 1
 	 &lt; corrisponde a < mentre &gt; corrisponde a > 
 	 se non inserivamo i simboli in questo modo sarebbero stati letti come tag HTML -->
 List&lt;String&gt; carrello = (List&lt;String&gt;) request.getSession().getAttribute("carrello");
-	if (carrello != null && carrello.size() > 0) {
+	if (carrello != null &amp;&amp; carrello.size() > 0) {
 		int i = 0;
 		for(String articolo : carrello){
 			i++;
