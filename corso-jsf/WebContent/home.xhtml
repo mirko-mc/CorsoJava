@@ -2,10 +2,114 @@
 <html xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<meta charset="ISO-8859-1" />
+	<meta charset="ISO-8859-1"></meta>
 	<title>Insert title here</title>
+
+	<h:outputStylesheet name="corso.css" library="css"></h:outputStylesheet>
+	<!-- h:outputScript name="lib/corso.js" library="js"></h:outputScript-->
 </h:head>
+
 <h:body>
-	<h1>HELLO!!!!!!!!</h1>
+	<h1>HELLO!!!!!!!!!</h1>
+
+	<h:form>
+		<h:inputText id="nome" value="#{hello.nome}" required="true"
+			requiredMessage="Campo obbligatorio!"></h:inputText>
+		<h:message for="nome"></h:message>
+		<br />
+		<br />
+		<h:inputTextarea value="#{hello.biografia}" rows="5" cols="50"></h:inputTextarea>
+		<br />
+		<br />
+		<h:selectManyCheckbox value="3">
+			<f:selectItem itemValue="1" itemLabel="Opzione 1"></f:selectItem>
+			<f:selectItem itemValue="2" itemLabel="Opzione 2"></f:selectItem>
+			<f:selectItem itemValue="3" itemLabel="Opzione 3"></f:selectItem>
+		</h:selectManyCheckbox>
+		<br />
+		<br />
+
+		<h:selectOneListbox>
+			<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+			<f:selectItem itemValue="1" itemLabel="Elemento 1"></f:selectItem>
+			<f:selectItem itemValue="2" itemLabel="Elemento 2"></f:selectItem>
+			<f:selectItem itemValue="3" itemLabel="Elemento 3"></f:selectItem>
+		</h:selectOneListbox>
+
+		<br />
+		<br />
+
+		<h:selectManyListbox>
+			<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+			<f:selectItem itemValue="1" itemLabel="Elemento 1"></f:selectItem>
+			<f:selectItem itemValue="2" itemLabel="Elemento 2"></f:selectItem>
+			<f:selectItem itemValue="3" itemLabel="Elemento 3"></f:selectItem>
+		</h:selectManyListbox>
+
+		<br />
+		<br />
+		<h:selectOneMenu>
+			<f:selectItem itemValue="" itemLabel=""></f:selectItem>
+			<f:selectItem itemValue="1" itemLabel="Elemento 1"></f:selectItem>
+			<f:selectItem itemValue="2" itemLabel="Elemento 2"></f:selectItem>
+			<f:selectItem itemValue="3" itemLabel="Elemento 3"></f:selectItem>
+		</h:selectOneMenu>
+
+		<br />
+		<br />
+		<h:outputText value="TEsto di prova #{hello.nome}!"></h:outputText>
+		<br />
+		<h:outputFormat value="TEsto di prova {0} {1}!">
+			<f:param value="PARAMETRO 1"></f:param>
+			<f:param value="PARAMETRO 2"></f:param>
+		</h:outputFormat>
+
+		<br />
+		<br />
+		<h:graphicImage url="/resources/images/free.jpg"></h:graphicImage>
+		<br />
+		<br />
+		<h:outputText value="BIO #{hello.biografia}!"></h:outputText>
+		<br />
+		<br />
+
+		<h:panelGrid columns="3" cellpadding="1" cellspacing="3" border="1">
+			<f:facet name="header">
+				<h:outputText value="TITOLO TABELLA"></h:outputText>
+			</f:facet>
+			<h:outputText value="Paolo"></h:outputText>
+			<h:outputText value="Preite"></h:outputText>
+			<h:outputText value="100 EUR"></h:outputText>
+			<f:facet name="footer">
+				<h:outputText value="FOOTER TABELLA"></h:outputText>
+			</f:facet>
+		</h:panelGrid>
+		<br />
+		<br />
+
+		<h:link outcome="home2.xhtml">Vai a pagina 2</h:link>
+		<br />
+		<h:commandLink action="home2.xhtml">Vai a pagina 2 Command</h:commandLink>
+		<br />
+		<br />
+
+		<br />
+		<br />
+		<h:commandButton value="INVIA" action="#{hello.saluta}">
+			<f:param name="numero" value="2"></f:param>
+		</h:commandButton>
+		<h:commandButton value="INVIA 1" action="#{hello.saluta}">
+			<f:param name="numero" value="1"></f:param>
+		</h:commandButton>
+		<h:commandButton value="INVIA QUI" action="#{hello.saluta}">
+
+		</h:commandButton>
+		<h:commandButton value="INVIA 1 REDIRECT" action="#{hello.saluta}">
+			<f:param name="numero" value="1red"></f:param>
+		</h:commandButton>
+		<h:commandButton value="VAI A PAG 2 REDIRECT"
+			action="home2?faces-redirect=true">
+		</h:commandButton>
+	</h:form>
 </h:body>
 </html>

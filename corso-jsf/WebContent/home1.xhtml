@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta charset="ISO-8859-1" />
+	<title>Insert title here</title>
+
+	<!-- h:outputStylesheet > permette di includere un file css nella pagina
+		 name > eventuale percorso e nome del file css
+		 library > cartella root dentro resources contenente i file css
+	-->
+	<h:outputStylesheet name="corso.css" library="css"></h:outputStylesheet>
+	<!-- h:outputScript > permette di includere uno script js nella pagina
+		 name > eventuale percorso e nome del file js
+		 library > cartella root dentro resources contenente gli script js
+	-->
+	<!-- h:outputScript name="lib/corso.js" library="js"></h:outputScript -->
+</h:head>
+<h:body>
+	<h1>HOME1 HELLO!!!!!!!!</h1>
+
+	<!-- INIZIO EDIT PER VALIDAZIONE CAMPI -->
+	<h:form>
+		<!-- creo un'etichetta per la textbox -->
+		<label for="nome">Nome</label>
+		<!-- creo una textbox -->
+		<h:inputText id="nome" value="#{hello.nome}">
+			<!-- il campo sara' valido se soddisfa i seguenti requisiti:
+				 f:validateLength > lugnhezza della stringa
+				 minimum > indica la lunghezza minima della stringa
+				 f:validateLongRange > range numerico accettato
+				 minimum > indica il valore minimo accettato
+				 maximum > indica il valore massimo accettato
+			-->
+			<!-- f:validateLength minimum="3"></f:validateLength-->
+			<f:validateLongRange minimum="10" maximum="20"></f:validateLongRange>
+		</h:inputText>
+		<!-- restituisco messaggio di errore se i requisiti non sono soddisfatti -->
+		<h:message for="nome"></h:message>
+		<!-- creo un pulsante per inviaare il form -->
+		<h:commandButton value="INVIA" action="#{hello.saluta}"></h:commandButton>
+	</h:form>
+	<!-- FINE EDIT PER VALIDAZIONE CAMPI -->
+</h:body>
+</html>
+<!-- http://localhost:8080/corso-jsf/home1.xhtml -->

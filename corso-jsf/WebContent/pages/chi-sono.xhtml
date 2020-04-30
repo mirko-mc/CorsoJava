@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- XMLNS:UI > per utilizzare i template -->
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta charset="ISO-8859-1" />
+	<title>Insert title here</title>
+
+	<!-- h:outputStylesheet > permette di includere un file css nella pagina
+		 name > eventuale percorso e nome del file css
+		 library > cartella root dentro resources contenente i file css
+	-->
+	<h:outputStylesheet name="corso.css" library="css"></h:outputStylesheet>
+	<!-- h:outputScript > permette di includere uno script js nella pagina
+		 name > eventuale percorso e nome del file js
+		 library > cartella root dentro resources contenente gli script js
+	-->
+	<!-- h:outputScript name="lib/corso.js" library="js"></h:outputScript -->
+</h:head>
+
+<h:body>
+	<!-- ui:composition > usato con l'attributo TEMPLATE consente di caricare un template.
+		 ui:composition > usato all'interno di una pagina senza specificare template consente di definire un blocco
+		 				  di codice html e, in questo caso, tutto il contenuto inserito al di fuori del tag, verra' ignorato
+		 template > specifica il percorso ed il file del template da caricare
+	-->
+	<ui:composition template="70-30.xhtml">
+	</ui:composition>
+</h:body>
+</html>
+<!-- http://localhost:8080/corso-jsf/pages/chi-sono.xhtml -->
