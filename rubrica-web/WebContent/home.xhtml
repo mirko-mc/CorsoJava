@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- aggiungo xmlns h f ui -->
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://primefaces.org/ui">
+<h:head>
+	<title>NabboBrica</title>
+</h:head>
+<h:body>
+	<h1>NABBO, ECCO LA TUA RUBRICA</h1>
+	<br />
+	<br /> tabella che visualizza i risultati e i pulsanti per aggiungere/modificare elementi
+	<br /> value > puntera' alla lista di contatti
+	<br /> var > conterra' il nome della variabile dell'i-esima riga di contatto
+	<br /> facet > consente di specificare il nome dell'intestazione della colonna
+	<br /> elemento > sara' un oggetto di tipo Contatto (RubricaManagedBean)
+	<br />
+	<br />
+	<ui:dataTable value="#{rubrica.elencoContatti}" var="elemento">
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText value="NOME"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{elemento.nome}"></h:outputText>
+		</ui:column>
+
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText value="COGNOME"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{elemento.cognome}"></h:outputText>
+		</ui:column>
+
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText value="TELEFONO"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{elemento.telefono}"></h:outputText>
+		</ui:column>
+
+		<ui:column>
+			<f:facet name="header">
+				<h:outputText value="EMAIL"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{elemento.email}"></h:outputText>
+		</ui:column>
+	</ui:dataTable>
+
+	<br /> creo form per inserimento dati
+	<br /> dialog widgetVar > assegno nome al dialog per riconoscerlo quando lo utilizzeremo nel button
+	<br /> creo panel con 3 colonne in modo da visualizzare: (1) l'etichetta (2) il campo di testo (3) il messaggio del required
+	<br /> inputText value > mappiamo l'attributo nome dell'oggetto contatto che si trova nel bean
+	<br /> inputText required > lo impostiamo a true perche' nel database li abbiamo definiti campi notnull
+	<br /> commandButton actionListener > fa riferimento al metodo salva nel managedBean
+	<br />
+	<br />
+	<h:form>
+		<ui:dialog widgetVar="inserimento" width="400" height="500"
+			modal="true">
+			<ui:panel>
+				<ui:panelGrid columns="3">
+					<h:outputLabel value="Nome" />
+					<ui:inputText id="nome" value="#{rubrica.contatto.nome}"
+						required="true" requiredMessage="Nome OBBLIGATORIO" />
+					<ui:message for="nome" />
+
+					<h:outputLabel value="Cognome" />
+					<ui:inputText id="cognome" value="#{rubrica.contatto.cognome}"
+						required="true" requiredMessage="Cognome OBBLIGATORIO" />
+					<ui:message for="cognome" />
+
+					<h:outputLabel value="Telefono" />
+					<ui:inputText id="telefono" value="#{rubrica.contatto.telefono}"
+						required="true" requiredMessage="Telefono OBBLIGATORIO" />
+					<ui:message for="telefono" />
+
+					<h:outputLabel value="Email" />
+					<ui:inputText value="#{rubrica.contatto.email}" />
+				</ui:panelGrid>
+				<ui:commandButton actionListener="#{rubrica.salva}"
+					onclick="PF('inserimento').close();" value="SALVA"/>
+			</ui:panel>
+		</ui:dialog>
+		<ui:commandButton type="button" onclick="PF('inserimento').show();"
+			value="Aggiungi Contatto" />
+	</h:form>
+</h:body>
+</html>
