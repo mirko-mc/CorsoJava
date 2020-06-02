@@ -16,69 +16,102 @@
 	<br /> elemento > sara' un oggetto di tipo Contatto (RubricaManagedBean)
 	<br />
 	<br />
-	<ui:dataTable value="#{rubrica.elencoContatti}" var="elemento">
-		<ui:column>
-			<f:facet name="header">
-				<h:outputText value="NOME"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{elemento.nome}"></h:outputText>
-		</ui:column>
+	<h:form id="tabellaForm">
+		<ui:dataTable value="#{rubrica.elencoContatti}" var="elemento"
+			id="tabella">
+			<ui:column>
+				<f:facet name="header">
+					<h:outputText value="NOME"></h:outputText>
+				</f:facet>
+				<h:inputHidden value="#{elemento.id}"></h:inputHidden>
+				<h:outputText value="#{elemento.nome}"></h:outputText>
+			</ui:column>
 
-		<ui:column>
-			<f:facet name="header">
-				<h:outputText value="COGNOME"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{elemento.cognome}"></h:outputText>
-		</ui:column>
+			<ui:column>
+				<f:facet name="header">
+					<h:outputText value="COGNOME"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{elemento.cognome}"></h:outputText>
+			</ui:column>
 
-		<ui:column>
-			<f:facet name="header">
-				<h:outputText value="TELEFONO"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{elemento.telefono}"></h:outputText>
-		</ui:column>
+			<ui:column>
+				<f:facet name="header">
+					<h:outputText value="TELEFONO"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{elemento.telefono}"></h:outputText>
+			</ui:column>
 
-		<ui:column>
-			<f:facet name="header">
-				<h:outputText value="EMAIL"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{elemento.email}"></h:outputText>
-		</ui:column>
-	</ui:dataTable>
+			<ui:column>
+				<f:facet name="header">
+					<h:outputText value="EMAIL"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{elemento.email}"></h:outputText>
+			</ui:column>
+			<ui:column>
+				<f:facet name="header">Azioni</f:facet>
+				<ui:commandButton oncomplete="PF('inserimento').show();"
+					value="Modifica" update=":inserimentoForm:inserimentoDetail">
+					<f:setPropertyActionListener value="#{elemento}"
+						target="#{rubrica.contatto}" />
+				</ui:commandButton>
+				<ui:commandButton value="Cancella"
+					actionListener="#{rubrica.cancella(elemento.id)}" update="tabella" />
+			</ui:column>
+		</ui:dataTable>
+	</h:form>
 
-	<br /> creo form per inserimento dati
-	<br /> dialog widgetVar > assegno nome al dialog per riconoscerlo quando lo utilizzeremo nel button
-	<br /> creo panel con 3 colonne in modo da visualizzare: (1) l'etichetta (2) il campo di testo (3) il messaggio del required
-	<br /> inputText value > mappiamo l'attributo nome dell'oggetto contatto che si trova nel bean
-	<br /> inputText required > lo impostiamo a true perche' nel database li abbiamo definiti campi notnull
-	<br /> commandButton actionListener > fa riferimento al metodo salva nel managedBean
+	<br /> CREO FORM PER INSERIMENTO DATI
+	<br /> widgetVar > assegno nome al dialog per riconoscerlo quando lo utilizzeremo nel button
 	<br />
 	<br />
-	<h:form>
-		<ui:dialog widgetVar="inserimento" width="400" height="500"
+	<h:form id="inserimentoForm">
+		<ui:dialog widgetVar="inserimento" width="550" height="750"
 			modal="true">
-			<ui:panel>
-				<ui:panelGrid columns="3">
+			<br /> creo panel con 3 colonne in modo da visualizzare: (1) l'etichetta (2) il campo di testo (3) il messaggio del required
+			<br />
+			<br />
+			<ui:panel id="inserimentoDetail">
+				<h:inputHidden id="id" value="#{rubrica.contatto.id}" />
+				<br /> panel messages > istruzione che visualizzera' tutti i messaggi di errore
+				<br /> inputText value > mappiamo l'attributo nome dell'oggetto contatto che si trova nel bean
+				<br /> inputText required > lo impostiamo a true perche' nel database li abbiamo definiti campi notnull
+				<br />
+				<br />
+				<ui:messages style="color:red" autoUpdate="true" />
+				<ui:panelGrid columns="2">
 					<h:outputLabel value="Nome" />
 					<ui:inputText id="nome" value="#{rubrica.contatto.nome}"
 						required="true" requiredMessage="Nome OBBLIGATORIO" />
-					<ui:message for="nome" />
 
 					<h:outputLabel value="Cognome" />
 					<ui:inputText id="cognome" value="#{rubrica.contatto.cognome}"
 						required="true" requiredMessage="Cognome OBBLIGATORIO" />
-					<ui:message for="cognome" />
 
 					<h:outputLabel value="Telefono" />
 					<ui:inputText id="telefono" value="#{rubrica.contatto.telefono}"
 						required="true" requiredMessage="Telefono OBBLIGATORIO" />
-					<ui:message for="telefono" />
 
 					<h:outputLabel value="Email" />
 					<ui:inputText value="#{rubrica.contatto.email}" />
 				</ui:panelGrid>
+				<br /> actionListener > fa riferimento al metodo salva nel managedBean
+				<br />
+				<br />
 				<ui:commandButton actionListener="#{rubrica.salva}"
-					onclick="PF('inserimento').close();" value="SALVA"/>
+					onclick="PF('inserimento').close();"
+					value="SALVA senza validazione campi"></ui:commandButton>
+				<br />
+				<br />
+				<br /> process > specifica quale form deve essere valutato
+				<br /> actionListener > specifica il metodo del managed bean da invocare per eseguire la determinata azione
+				<br /> oncomplete > specifica il comportamento che deve avere il panel: SE la validazione fallisce il form rimane visibile ALTRIMENTI viene chiuso.
+				<br /> update > specifica l'elemento da aggiornare dopo l'invio dei dati (in questo caso aggiorniamo la tabella degli utenti della rubrica)
+				<br />
+				<br />
+				<ui:commandButton process="@([id$=inserimentoForm])"
+					actionListener="#{rubrica.salva}"
+					oncomplete="if(!args.validationFailed){ PF('inserimento').hide();} else {PF('inserimento').show();}"
+					update="@([id$=tabella])" value="SALVA con validazione campi"></ui:commandButton>
 			</ui:panel>
 		</ui:dialog>
 		<ui:commandButton type="button" onclick="PF('inserimento').show();"

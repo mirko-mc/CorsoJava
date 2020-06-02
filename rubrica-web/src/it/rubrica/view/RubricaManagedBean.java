@@ -34,6 +34,10 @@ public class RubricaManagedBean implements Serializable{
 		rubricaBusiness.addContatto(contatto);
 	}
 	
+	public void cancella() {
+		rubricaBusiness.removeContatto(contatto);
+	}
+	
 	/* GETTER SETTER */
 	public Contatto getContatto() {
 		return contatto;
